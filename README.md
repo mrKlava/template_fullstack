@@ -1,4 +1,6 @@
-# THIS IS EMPTY PROJECT
+# Context branch:
+Here you can find basic example / template for full stack app using React context
+
 ## CONTAINS:
 ### Front:
 - Router with 4 routes (/, main, login, register)
