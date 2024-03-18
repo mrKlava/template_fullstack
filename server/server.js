@@ -2,7 +2,6 @@ import 'dotenv/config'
 import express from "express"
 import cors from "cors"
 import cookieParser from 'cookie-parser'
-
 import jwt from "jsonwebtoken"
 
 import { db } from './db.js'
@@ -33,7 +32,7 @@ app.use(cookieParser())
 
 /* Routing */
 
-app.use("api/auth", authRoutes)
+app.use("/api/auth", authRoutes)
 
 
 /* Run server */

@@ -1,7 +1,28 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
+import { useContext } from 'react'
+import { AuthContext } from './authContext'
 
 import App from './App'
 import { Login, Main, Register } from './pages'
+
+
+/* Wrapper function to protect routes where user must be authenticated */
+const ProtectedRoute = ({ children }) => {
+  const { currentUser } = useContext(AuthContext)
+
+  if (!currentUser) return <Navigate to="/login" />   // if user is auth -> redirect to /login
+
+  return children
+}
+
+/* Wrapper function to protect routes from users authenticated */
+const AuthRoute = ({ children }) => {
+  const { currentUser } = useContext(AuthContext)
+
+  if (currentUser) return <Navigate to="/" />       // if user is auth -> redirect to / 
+
+  return children
+}
 
 // create all routes and link them with correct Page components
 const router = createBrowserRouter([
@@ -11,19 +32,23 @@ const router = createBrowserRouter([
   },
   {
     path: "/main",
-    element: <Main />
+    element: <ProtectedRoute><Main /></ProtectedRoute>
   },
   {
     path: "/login",
-    element: <Login />
+    element: <AuthRoute><Login /></AuthRoute>
   },
   {
     path: "/register",
-    element: <Register />
+    element: <AuthRoute><Register /></AuthRoute>
+  },
+  { 
+    path: '*',                 
+    element: <Navigate to='/' /> 
   }
 ])
 
-// create router provider and pass it to import it in index.js
+// create router provider and import it in index.js
 const Router = ({ children }) => {
   return (
     <RouterProvider router={ router }>
