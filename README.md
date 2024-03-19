@@ -1,8 +1,13 @@
-# THIS IS EMPTY PROJECT
+# Redux-toolkit branch
+this branch contains example of redux-toolkit usage for fullstack app
+
 ## CONTAINS:
 ### Front:
 - Router with 4 routes (/, main, login, register)
 - axios instance for requests
+- redux store with 2 reducers 
+- - user reducer - to handle auth
+- - users reducer - to fetch all registered users
 ### Back:
 - .env
     ```
@@ -19,5 +24,6 @@
       DB_PWD="..."
       DB_NAME="..."
     ```
-- DB connection
+- DB connection to MySQL 
 - auth router with controllers: login, register, logout
+- users router with controllers: getUsers

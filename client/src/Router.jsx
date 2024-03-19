@@ -1,25 +1,24 @@
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
-import { useContext } from 'react'
-import { AuthContext } from './authContext'
 
 import App from './App'
 import { Login, Main, Register } from './pages'
+import { useSelector } from 'react-redux'
 
 
 /* Wrapper function to protect routes where user must be authenticated */
 const ProtectedRoute = ({ children }) => {
-  const { currentUser } = useContext(AuthContext)
-
-  if (!currentUser) return <Navigate to="/login" />   // if user is auth -> redirect to /login
-
+  const { user } = useSelector( state => state.userReducer )
+  
+  if (!user) return <Navigate to="/login" />   // if user is auth -> redirect to /login
+  
   return children
 }
 
 /* Wrapper function to protect routes from users authenticated */
 const AuthRoute = ({ children }) => {
-  const { currentUser } = useContext(AuthContext)
+  const { user } = useSelector( state => state.userReducer )
 
-  if (currentUser) return <Navigate to="/" />       // if user is auth -> redirect to / 
+  if (user) return <Navigate to="/" />       // if user is auth -> redirect to / 
 
   return children
 }

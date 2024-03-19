@@ -1,19 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { Provider } from 'react-redux';
 
+import store from './store/store'
 import Router from './Router'
 
 import './index.scss'
-import { AuthContextProvider } from './authContext'
-
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
-/* pass router to app */
+/* pass router to app and wrap it with Redux store*/
 root.render(
 	<React.StrictMode>
-		<AuthContextProvider>
+		<Provider store={store}>
 			<Router />
-		</AuthContextProvider>
+		</Provider>
 	</React.StrictMode>
 )

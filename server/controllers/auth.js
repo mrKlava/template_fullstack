@@ -12,6 +12,7 @@ export const login = (req, res) => {
   FROM users
   WHERE user_id = ?;
   `
+  console.log('login')
 
   db.query(q, [req.body.userId], (err, data) => {
     if (err) return res.status(500).json(err)
@@ -35,6 +36,8 @@ export const login = (req, res) => {
 /* Register */
 
 export const register = (req, res) => {
+  console.log('register')
+
   // create hashed password
   const salt = bcrypt.genSaltSync(10)
   const hash = bcrypt.hashSync(req.body.pwd, salt)
@@ -43,7 +46,7 @@ export const register = (req, res) => {
   const q = `
   INSERT INTO users (firstname, lastname, hash)
   VALUES (?);
-`
+  `
 
   const params = [
     req.body.firstname,
@@ -62,7 +65,10 @@ export const register = (req, res) => {
 /* Logout */
 
 export const logout = (req, res) => {
-  res.clearCookie("accessToken", { //remove token
+  console.log('logout')
+
+  // destroy cookie with token
+  res.clearCookie("accessToken", { 
     secure: true,
     sameSite: "none" // to be able to use different ports
   }).status(200).json("Successfully logout")

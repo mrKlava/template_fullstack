@@ -1,28 +1,32 @@
-import { useContext, useState } from "react"
-import { AuthContext } from "../authContext"
+import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { userLogin } from "../store/slices/ActionCreator"
+import { Link } from "react-router-dom"
+
 
 function Login() {
-  const { login } = useContext(AuthContext)
+  // init hooks
+  const dispatch = useDispatch()
+
+  // init states
+  const { error } = useSelector(state => state.userReducer)
   const [ inputs, setInputs ] = useState({userId: "", pwd: ""})
 
+  // handle controlled inputs
   const handleChange = (e) => {
     const tg = e.target
-
     setInputs((prev) => ({...prev, [tg.name] : tg.value}))
   }
 
+  // pass input data to login function in redux
   const handleSubmit = async (e) => {
     e.preventDefault()
-
-    try {
-      const resp = await login(inputs)
-    } catch (err) {
-      console.log(err)
-    }
+    dispatch( userLogin(inputs) )
   }
   
   return (
     <div>
+      <Link to='/home'>home</Link>
       <h1>Login</h1>
       <form>
         <input 
@@ -37,9 +41,10 @@ function Login() {
           onChange={handleChange}
           value={inputs.pwd} 
         />
-
         <input type="submit" value="submit" onClick={handleSubmit}/>
       </form>
+      <Link to='/register'>register</Link>
+      {error && <p>{error}</p>}
     </div>
   )
 }
