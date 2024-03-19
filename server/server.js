@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken"
 import { db } from './db.js'
 
 import authRoutes from "./routes/auth.js"
+import usersRoutes from "./routes/users.js"
 
 
 /* Variables */
@@ -32,8 +33,8 @@ app.use(cookieParser())
 
 /* Routing */
 
-app.use("/api/auth", authRoutes)
-
+app.use("/api/auth",      authRoutes)
+app.use("/api/users",     usersRoutes)
 
 /* Run server */
 

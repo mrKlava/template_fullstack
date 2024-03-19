@@ -1,16 +1,20 @@
 import { useContext, useState } from "react"
-import { AuthContext } from "../authContext"
+import { AuthContext } from "../context/authContext"
+import { Link } from "react-router-dom"
 
 function Login() {
+  // init state 
   const { login } = useContext(AuthContext)
   const [ inputs, setInputs ] = useState({userId: "", pwd: ""})
 
+  // handle change of controlled inputs
   const handleChange = (e) => {
     const tg = e.target
 
     setInputs((prev) => ({...prev, [tg.name] : tg.value}))
   }
 
+  // pass input data to login function in auth context
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -23,6 +27,7 @@ function Login() {
   
   return (
     <div>
+      <Link to='/home'>home</Link>
       <h1>Login</h1>
       <form>
         <input 
@@ -40,6 +45,7 @@ function Login() {
 
         <input type="submit" value="submit" onClick={handleSubmit}/>
       </form>
+      <Link to='/register'>register</Link>
     </div>
   )
 }

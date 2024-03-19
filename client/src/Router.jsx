@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import { useContext } from 'react'
-import { AuthContext } from './authContext'
+import { AuthContext } from './context/authContext'
 
 import App from './App'
 import { Login, Main, Register } from './pages'

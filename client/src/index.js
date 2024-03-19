@@ -1,19 +1,22 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
+import { AuthContextProvider } from './context/authContext'
+import { UsersContextProvider } from './context/usersContext'
+
 import Router from './Router'
 
 import './index.scss'
-import { AuthContextProvider } from './authContext'
-
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
-/* pass router to app */
+/* pass router to app and wrap with contexts */
 root.render(
 	<React.StrictMode>
 		<AuthContextProvider>
-			<Router />
+			<UsersContextProvider>
+				<Router />
+			</UsersContextProvider>
 		</AuthContextProvider>
 	</React.StrictMode>
 )

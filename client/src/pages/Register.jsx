@@ -1,18 +1,23 @@
 import { useContext, useState } from "react"
-import { AuthContext } from "../authContext"
-import { useNavigate } from "react-router-dom"
+import { AuthContext } from "../context/authContext"
+import { Link, useNavigate } from "react-router-dom"
 
 function Register() {
+  // init hooks
   const navigate = useNavigate()
+
+  // init state
   const { register } = useContext(AuthContext)
   const [ inputs, setInputs ] = useState({firstname: "", lastname: "", pwd: ""})
 
+  // handle change of controlled inputs
   const handleChange = (e) => {
     const tg = e.target
 
     setInputs((prev) => ({...prev, [tg.name] : tg.value}))
   }
 
+  // pass input data to register function in auth context
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -27,6 +32,7 @@ function Register() {
   
   return (
     <div>
+      <Link to='/home'>home</Link>
       <h1>Register</h1>
       <form>
         <input 
@@ -50,6 +56,7 @@ function Register() {
 
         <input type="submit" value="submit" onClick={handleSubmit}/>
       </form>
+      <Link to='/login'>login</Link>
     </div>
   )
 }
